@@ -331,3 +331,6 @@ ASALocalRun/
 
 # macOS Finder files
 .DS_Store
+
+# Outputs
+out/

@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>LibNative.Interop</PackageId>
+    <LocalDevBuild>true</LocalDevBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="build\**\*" PackagePath="build" />
+    <Content Include="runtimes\**\*" PackagePath="runtimes" />
+  </ItemGroup>
+
+  <!--
+    If this is a local developer build then try to include the locally
+    built libnative binaries for the current platform, and assume the
+    RID is the current host OS default. This is just here for developer
+    convenience.
+  -->
+  <PropertyGroup Condition="'$(LocalDevBuild)' == 'true'">
+    <LocalRid Condition="$([MSBuild]::IsOSPlatform('windows'))">win-x64</LocalRid>
+    <LocalRid Condition="$([MSBuild]::IsOSPlatform('osx'))">osx-x64</LocalRid>
+    <LocalRid Condition="$([MSBuild]::IsOSPlatform('linux'))">linux-x64</LocalRid>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(LocalDevBuild)' == 'true'">
+    <Content Include="$(MSBuildThisProjectDirectory)..\..\out\libnative\lib\**\*" PackagePath="runtimes\$(LocalRid)" />
+  </ItemGroup>
+
+</Project>
