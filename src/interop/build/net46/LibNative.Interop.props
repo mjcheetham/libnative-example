@@ -4,4 +4,7 @@
     <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)\..\..\runtimes\win-x64\native\*" TargetPath="lib\win32\x64\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)\..\..\runtimes\win-arm64\native\*" TargetPath="lib\win32\arm64\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+  <ItemGroup Condition="'$(PlatformTarget)' == 'AnyCPU'">
+    <!-- Do something here? -->
+  </ItemGroup>
 </Project>
